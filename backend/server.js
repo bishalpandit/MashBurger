@@ -1,28 +1,20 @@
 const express = require('express');
-const products = require('./data/products');
 const connectDB = require('./config/db');
+const productRoutes = require('./routes/productRoutes')
 const dotenv = require('dotenv');
 
+// Configs
+
 dotenv.config();
-
 connectDB();
-
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('API is running...')
-})
+// Imported Routes
 
-app.get('/api/products', (req, res) => {
-    res.json(products);
-})
+app.use('/api/products',productRoutes);
+app.use('/api/product/:id',productRoutes);
 
-app.get('/api/products/:id', (req, res) => {
-    const product = products.find(p => p._id === req.params.id);
-    res.json(product);
-
-})
+// Port and Listener
 
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, console.log('Server running'))
+app.listen(PORT, console.log('Server running'));
