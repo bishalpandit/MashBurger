@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const bcrypt = require('bcryptjs')
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -23,6 +23,12 @@ const userSchema = mongoose.Schema({
     timestamps: true
 })
 
-const User = mongoose.model('User',userSchema)
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    let pass = bcrypt.getSalt(this.password)
+    console.log(pass);
+    return await bcrypt.compare(enteredPassword, this.password)
+}
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User

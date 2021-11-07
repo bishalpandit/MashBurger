@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
 const dotenv = require('dotenv');
 
 // Configs
@@ -8,11 +9,11 @@ const dotenv = require('dotenv');
 dotenv.config();
 connectDB();
 const app = express();
-
+app.use(express.json())
 // Imported Routes
 
-app.use('/api/products',productRoutes);
-app.use('/api/product/:id',productRoutes);
+app.use('/api/products',productRoutes); // Products API
+app.use('/api/users',userRoutes);  // Users API
 
 // Port and Listener
 
