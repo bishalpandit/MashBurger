@@ -18,7 +18,10 @@ app.use('/api/products',productRoutes); // Products API
 app.use('/api/users',userRoutes);  // Users API
 app.use('/api/orders',orderRoutes) // Orders API
 
+
+app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 // Port and Listener
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log('Server running'));
