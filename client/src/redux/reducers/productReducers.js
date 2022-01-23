@@ -2,18 +2,18 @@ import { PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_
 
 
 
-export const productListReducer = (state = { products: [] }, action) => {
+export const productListReducer = (state = { foodItems: [] }, action) => {
 
     switch (action.type) {
         case PRODUCT_LIST_REQUEST:
             return {
                 loading: true,
-                products: []
+                foodItems: []
             }
         case PRODUCT_LIST_SUCCESS:
             return {
                 loading: false,
-                products: action.payload
+                foodItems: action.payload
             }
         case PRODUCT_LIST_FAIL:
             return {

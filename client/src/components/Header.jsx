@@ -151,7 +151,7 @@ export default function Header({ history }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: '#EA5C2B'}}>
         <Toolbar>
 
           {/* WebApp Name */}
