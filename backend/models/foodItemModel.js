@@ -17,22 +17,9 @@ const reviewSchema = mongoose.Schema({
     timestamps: true
 })
 
-const sizeSchema = mongoose.Schema({
-    small: 'small',
-    medium: 'medium',
-    large: 'large',
-    default: 'normal'
-})
 
-const priceSchema = mongoose.Schema({
-    normal: Number,
-    special: {
-        small: Number,
-        medium: Number,
-        big: Number
-    }
 
-})
+
 const foodItemSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -43,7 +30,7 @@ const foodItemSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    image: {
+    imgURL: {
         type: String,
         required: true,
     },
@@ -55,12 +42,18 @@ const foodItemSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    price: priceSchema,
+    price: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true,
+        default: 0
+    },
     veg: {
         type: Boolean,
         required: true,
     },
-    size: sizeSchema ,
+    size: {
+        type: mongoose.Schema.Types.Mixed,
+    },
     reviews: [reviewSchema],
     rating: {
         type: Number,
