@@ -26,6 +26,14 @@ const theme = createTheme({
       '"Segoe UI Symbol"',
     ].join(','),
   },
+  palette: {
+    primary: {
+      main: '#f44336',
+    },
+    secondary: {
+      main: '#f44336',
+    },
+}
 })
 
 ReactDOM.render(

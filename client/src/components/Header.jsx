@@ -151,7 +151,7 @@ export default function Header({ history }) {
   )
 
   return (
-    <Box sx={{ flexGrow: 1, fontFamily: 'Poppins' }}>
+    <Box >
       <AppBar position="static" sx={{ backgroundColor: '#EA5C2B' }}>
         <Toolbar>
 
@@ -159,8 +159,6 @@ export default function Header({ history }) {
           <StyledLink to='/' sx={{ fontSize: '1.7rem', marginRight: 2 }}>
             DelFoody
           </StyledLink>
-
-
 
           {
             searchOpen ?
