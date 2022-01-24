@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import LoginIcon from '@mui/icons-material/Login';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from "../redux/actions/userActions";
 import { Link } from 'react-router-dom'
@@ -150,16 +151,16 @@ export default function Header({ history }) {
   )
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#EA5C2B'}}>
+    <Box sx={{ flexGrow: 1, fontFamily: 'Poppins' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#EA5C2B' }}>
         <Toolbar>
 
           {/* WebApp Name */}
-          <StyledLink to='/' sx={{ fontSize: '1.5rem' }}>
+          <StyledLink to='/' sx={{ fontSize: '1.7rem', marginRight: 2 }}>
             DelFoody
           </StyledLink>
 
-          <Box sx={{ flexGrow: 1 }} />
+
 
           {
             searchOpen ?
@@ -184,6 +185,20 @@ export default function Header({ history }) {
               )
           }
 
+          <Box sx={{ flexGrow: 1 }} />
+
+          <IconButton
+            size="large"
+            edge="end"
+            aria-label="cart"
+            aria-controls={mobileMenuId}
+            aria-haspopup="true"
+            color="inherit"
+            sx={{ marginRight: '4px' }}
+          >
+            <ShoppingCartRoundedIcon />
+          </IconButton>
+
           {
             !userInfo ?
               (
@@ -195,12 +210,12 @@ export default function Header({ history }) {
                   </Box>
 
                   <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'space-evenly', padding: '4px', width: '200px', }}>
-                    <Link to='/register' underline="none">
+                    <StyledLink to='/register'>
                       <Typography sx={{ textDecoration: 'none', color: 'white' }}>Sign Up</Typography>
-                    </Link>
-                    <Link to='/login' underline="none">
+                    </StyledLink>
+                    <StyledLink to='/login'>
                       <Typography sx={{ textDecoration: 'none', color: 'white' }}>Login</Typography>
-                    </Link>
+                    </StyledLink>
                   </Box>
                 </Box>
 

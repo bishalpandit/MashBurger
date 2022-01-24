@@ -9,7 +9,7 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
   const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
   return (
     <div>
-      <Card sx={{ maxWidth: 280 }}>
+      <Card sx={{ maxWidth: 280 }} >
 
         <Link to={`/product/${_id}`} >
           <CardMedia
