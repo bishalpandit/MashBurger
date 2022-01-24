@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from '@mui/material'
+import { Avatar, Button, CssBaseline, TextField, Link, Grid, Box, Alert, Typography, Container } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../redux/actions/userActions';
-import Message from "../components/Message"
 
 
 const theme = createTheme();
@@ -42,7 +41,7 @@ const RegisterScreen = ({ location, history }) => {
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                {error && <Message variant='danger'>User Already Exists</Message>}
+                {error && <Alert severity='warning'>User Already Exists</Alert>}
                 <Box
                     sx={{
                         marginTop: 8,

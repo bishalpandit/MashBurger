@@ -1,47 +1,48 @@
-import React, { useState, useEffect } from "react";
-import Product from "../components/Product";
-import Message from "../components/Message";
-import Skeleton from "react-loading-skeleton";
-import { Grid } from '@mui/material'
-import 'react-loading-skeleton/dist/skeleton.css'
+import React, { useEffect, useCallback } from "react";
+import FoodItem from "../components/FoodItem";
+import { Grid, Alert, Skeleton, Box } from '@mui/material'
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../redux/actions/productActions";
+import { listFoodItems } from "../redux/actions/foodItemActions";
 
 export default function HomeScreen() {
 
   const dispatch = useDispatch();
 
-  const productList = useSelector(state => state.productList);
-  const { loading, error, foodItems } = productList
-  console.log(foodItems);
+  const foodItemList = useSelector(state => state.foodItemList);
+  const { loading, error, foodItems } = foodItemList
+
+
   useEffect(() => {
-    dispatch(listProducts())
+    dispatch(listFoodItems())
   }, [dispatch]);
 
   return (
     <>
       <h1>Your Food Corner</h1>
-      {loading ? <> <Skeleton count={20} /></> : error ? <Message variant="danger" >{error}</Message> :
+      {
+        error ? (<Alert severity='error'>Something bad happened!</Alert>) :
 
-        <Grid container spacing={4} style={{marginTop: '2rem'}} columns={{ xs: 4, sm: 8, md: 12 }}>
-          {
-            foodItems.map((foodItem, index) => (
-              <Grid item key={index} sm={12} md={4} >
-                <Product foodItem={foodItem} />
-              </Grid>
-            ))
-          }
-        </Grid>
+          <Grid justifyContent="center" alignItems="center" container spacing={2} style={{ marginTop: '2rem' }}>
+            {
+              loading ?
+                (Array.from(new Array(3)).map((item, index) => (
+                  <Grid item key={index} sm={12} md={4} sx={{ width: 280 }}>
+                    <Skeleton animation="wave" variant="rectangular" width={280} height={168} />
+                    <Skeleton width='100%' />
+                    <Skeleton width="60%" />
+                  </Grid>
+                )))
+                :
+                (foodItems.map((foodItem, index) => (
+                  <Grid item key={index} sm={12} md={4} >
+                    <FoodItem foodItem={foodItem} />
+                  </Grid>
+                )))
+            }
+          </Grid>
       }
 
     </>
   );
 }
 
-{/* <Row>
-  {products.map((product) => (
-    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-      <Product product={product} />
-    </Col>
-  ))}
-</Row> */}

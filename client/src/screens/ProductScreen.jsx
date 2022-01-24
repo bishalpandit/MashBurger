@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { Alert } from '@mui/material'
 import { Row, Col, Image, ListGroup, Button, Form } from "react-bootstrap";
 import Rating from "../components/Rating";
-import { listProductDetails } from "../redux/actions/productActions";
+import { listFoodItemDetails } from "../redux/actions/foodItemActions";
 
 export default function ProductScreen({ match, history }) {
   const [ qty, setQty ] = useState(1);
@@ -15,7 +15,7 @@ export default function ProductScreen({ match, history }) {
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
+    dispatch(listFoodItemDetails(match.params.id));
   }, [dispatch, match.params.id]);
 
   const addToCartHandler = () => {
@@ -33,7 +33,7 @@ export default function ProductScreen({ match, history }) {
           <Loader />
         </>
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Alert severity='info'>{error}</Alert>
       ) : (
         <Row>
           <Col md={6}>

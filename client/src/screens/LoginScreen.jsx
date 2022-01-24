@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { Avatar, Button, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container, Alert} from '@mui/material'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../redux/actions/userActions'
-import Message from "../components/Message"
 import Loader from "../components/Loader"
 
 const theme = createTheme();
@@ -52,8 +41,7 @@ const LoginScreen = ({ location, history }) => {
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                {error && <Message variant='danger'>Invalid Email or Password</Message>}
+                {error && <Alert severity='error'>Invalid Email or Password</Alert>}
                 {loading ? <Loader /> : (
                 <Box
                     sx={{

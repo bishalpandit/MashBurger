@@ -1,27 +1,33 @@
 const asyncHandler = require("express-async-handler");
 const FoodItem = require("../models/foodItemModel");
 
-//@desc Fetch all products
-//@route GET /api/products
+//@desc Get all foodItems
+//@route GET /api/fooditems
 
-const getProducts = asyncHandler( async(req, res) => {
+const getFoodItems = asyncHandler( async(req, res) => {
     const foodItems = await FoodItem.find({});
+    if(foodItems) {
 
-    res.json(foodItems);
+        res.json(foodItems);
+    }
+    else {
+        res.status(404).json('No data Found')
+        throw new Error('No item found in DB')
+    }
 });
 
-//@desc Fetch single product
-//@route GET /api/products/:id
+//@desc Get a single food Item i.e. Chicken Delight Pizza
+//@route GET /api/fooditems/:id
 
-const getProductById = asyncHandler( async(req, res) => {
-    const product = await FoodItem.findById(req.params.id);
+const getFoodItemById = asyncHandler( async(req, res) => {
+    const foodItem = await FoodItem.findById(req.params.id);
 
-    if (product) {
-        res.json(product);
+    if (foodItem) {
+        res.json(foodItem);
     } else {
         throw new Error("Product not found");
     }
 })
 
-module.exports = {getProducts, getProductById}
+module.exports = {getFoodItems, getFoodItemById}
 

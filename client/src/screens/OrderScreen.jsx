@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader';
-import { Typography, List, ListItem, Grid, ListItemText, Button, Container, Paper, Avatar, Link, Box } from '@mui/material';
-import Message from '../components/Message';
+import { Typography, List, ListItem, Grid, ListItemText, Button, Alert, Container, Paper, Avatar, Link, Box } from '@mui/material'
 import { getOrder, orderPay } from '../redux/actions/orderActions';
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
@@ -54,7 +53,7 @@ const OrderScreen = ({ match }) => {
 
     return (
 
-        loading ? <Loader /> : error ? <Message>{error}</Message> :
+        loading ? <Loader /> : error ? <Alert severity='error'>{error}</Alert> :
             (
                 <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -66,7 +65,7 @@ const OrderScreen = ({ match }) => {
                         <List disablePadding>
                             {
                                 order?.orderItems?.length === 0 ?
-                                    <Message>Cart is Empty</Message> :
+                                    <Alert severity='info'>Cart is Empty</Alert> :
                                     order?.orderItems?.map((product, index) => (
                                         <ListItem key={index} sx={{ py: 1, px: 0 }}>
                                             <Avatar sx={{ m: 1 }} src={product.image} variant='square'></Avatar>
@@ -118,7 +117,7 @@ const OrderScreen = ({ match }) => {
                                                     <PayPalButton
                                                         amount={order.totalPrice}
                                                         onSuccess={successPaymentHandler}
-                                                        
+
                                                     />
                                                 )}
                                             </ListItem>
@@ -126,10 +125,7 @@ const OrderScreen = ({ match }) => {
                                     )
                                 }
                             </Grid>
-
                         </Grid>
-
-
                     </Paper>
                 </Container>
             )

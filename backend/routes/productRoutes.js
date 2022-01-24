@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { getProducts, getProductById } = require('../controllers/productControllers')
+const { getFoodItems, getFoodItemById } = require('../controllers/productControllers')
 
-router.route('/').get(getProducts);
-router.route('/:id').get(getProductById);
+router.route('/').get(getFoodItems);
+router.route('/:id').get(getFoodItemById);
 
 module.exports = router

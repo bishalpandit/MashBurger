@@ -14,7 +14,7 @@ app.use(express.json())
 
 // Imported Routes
 
-app.use('/api/products',productRoutes); // Products API
+app.use('/api/fooditems',productRoutes); // Products API
 app.use('/api/users',userRoutes);  // Users API
 app.use('/api/orders',orderRoutes) // Orders API
 

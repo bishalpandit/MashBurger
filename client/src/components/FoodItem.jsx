@@ -1,7 +1,7 @@
 import React from "react";
 import Rating from "./Rating";
 import { Link } from "react-router-dom";
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
+import { Card, CardContent, CardMedia, Typography, Skeleton } from '@mui/material'
 
 
 export default function Product({ foodItem: { _id, imgURL, name, rating, price } }) {
@@ -9,7 +9,8 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
   const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ maxWidth: 280 }}>
+
         <Link to={`/product/${_id}`} >
           <CardMedia
             component="img"
@@ -18,19 +19,18 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
             alt={name}
           />
         </Link>
+
         <CardContent>
-          <Link to={`/product/${_id}`} style={{ textDecoration: 'none'}}>
-            <Typography style={{fontSize: '1.5rem', color: 'black'}} >
+          <Link to={`/product/${_id}`} style={{ textDecoration: 'none' }}>
+            <Typography style={{ fontSize: '1.5rem', color: 'black' }} >
               {name}
             </Typography>
           </Link>
-          {/* <Rating
-            value={rating}
-          /> */}
           <Typography variant="h6" color="text.primary">
-           Rs {price?.small || price}
+            Rs {price?.small || price}
           </Typography>
         </CardContent>
+
       </Card>
     </div>
   );

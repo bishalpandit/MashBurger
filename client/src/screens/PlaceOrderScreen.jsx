@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps';
-import { Typography, List, ListItem, Grid, ListItemText, Button, Container, Paper, Avatar, Link } from '@mui/material';
-import Message from '../components/Message';
+import { Typography, List, ListItem, Grid, Alert, ListItemText, Button, Container, Paper, Avatar, Link } from '@mui/material';
 import { createOrder } from '../redux/actions/orderActions';
 
 const PlaceOrderScreen = ({ history }) => {
@@ -42,7 +41,7 @@ const PlaceOrderScreen = ({ history }) => {
             <CheckoutSteps step1 step2 step3 step4 />
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 {error &&
-                <Message>Order Placement Failed</Message>   
+                <Alert severity='error'>Order Placement Failed</Alert>   
             }
 
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -53,7 +52,7 @@ const PlaceOrderScreen = ({ history }) => {
                         </Typography>
                         <List disablePadding>
                             {!cartItems.length ?
-                                (<Message>Your cart is empty</Message>)
+                                (<Alert severity='info'>Your cart is empty</Alert>)
                                 :
                                 cartItems.map((product) => (
                                     <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
