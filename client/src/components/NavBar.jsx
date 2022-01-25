@@ -11,7 +11,7 @@ import { logout } from "../redux/actions/userActions";
 import { Link } from 'react-router-dom'
 
 
-export default function Header({ history }) {
+export default function NavBar({ history }) {
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',

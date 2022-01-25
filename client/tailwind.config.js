@@ -7,7 +7,8 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         montserrat: ["Montserrat", "serif"],
-        roboto: ["Roboto", "serif"]
+        roboto: ["Roboto", "serif"],
+        alfa: ["Alfa Slab One", "serif"],
       }
     },
   },
