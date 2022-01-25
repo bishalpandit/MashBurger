@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../components/Loader";
-import { Alert, LinearProgress, Rating } from '@mui/material'
-import { Row, Col, Image, ListGroup, Button, Form } from "react-bootstrap";
+import { Alert, LinearProgress, Rating, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { listFoodItemDetails } from "../redux/actions/foodItemActions";
 
 export default function ProductScreen({ match, history }) {

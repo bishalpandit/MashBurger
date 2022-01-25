@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { styled, alpha } from '@mui/material/styles'
-import { Box, Typography, AppBar, Toolbar, IconButton, InputBase, Badge, Menu, MenuItem } from '@mui/material'
+import { Box, Typography, AppBar, Toolbar, IconButton, InputBase, Badge, Menu, MenuItem, } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
@@ -9,9 +9,6 @@ import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from "../redux/actions/userActions";
 import { Link } from 'react-router-dom'
-
-
-
 
 
 export default function Header({ history }) {
@@ -68,6 +65,7 @@ export default function Header({ history }) {
   // Handling Logout
   const dispatch = useDispatch()
   const { userInfo } = useSelector(state => state.userLogin)
+  const { cartItems } = useSelector(state => state.cart)
   const handleLogout = () => {
     dispatch(logout())
   }
@@ -116,7 +114,7 @@ export default function Header({ history }) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link href='/profile' underline="none">
+      <Link to='/profile' underline="none">
         <MenuItem sx={{ textDecoration: 'none', color: 'black' }} onClick={() => { handleMenuClose(); }}>Profile</MenuItem>
       </Link>
       <MenuItem onClick={() => { handleMenuClose(); handleLogout(); }}>LogOut</MenuItem>
@@ -194,7 +192,19 @@ export default function Header({ history }) {
             color="inherit"
             sx={{ marginRight: '4px' }}
           >
-            <ShoppingCartRoundedIcon />
+            {
+              Boolean(cartItems.length) ?
+                (
+                  <Badge badgeContent={cartItems.length} color="secondary">
+                    <ShoppingCartRoundedIcon />
+                  </Badge>
+                ) :
+                (
+                  <ShoppingCartRoundedIcon />
+                )
+
+            }
+
           </IconButton>
 
           {
@@ -202,7 +212,7 @@ export default function Header({ history }) {
               (
                 <Box>
                   <Box sx={{ display: { md: 'none' } }}>
-                    <Link href='/login' underline='none'>
+                    <Link to='/login' underline='none'>
                       <LoginIcon sx={{ color: 'white', marginLeft: '6px' }} />
                     </Link>
                   </Box>
@@ -237,7 +247,7 @@ export default function Header({ history }) {
         </Toolbar>
       </AppBar>
       {renderMenu}
-    </Box>
+    </Box >
   )
 
 }

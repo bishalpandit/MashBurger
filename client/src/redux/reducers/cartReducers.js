@@ -1,39 +1,41 @@
 import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants"
 
-export const cartReducer = (state = { cartItems: [], shippingAddress: {}, paymentMethod: '' }, action) => {
+export const cartReducer = (prevState = { cartItems: [], shippingAddress: {}, paymentMethod: '' }, action) => {
     switch (action.type) {
         case CART_ADD_ITEM:
-            const item = action.payload
-            const existItem = state.cartItems.find(x => x.product === item.product)
+            const newOrderItem = action.payload
+            // foodItem is basically the id of that foodItem :>
+            const existItem = prevState.cartItems.find(x => x.foodItemID === newOrderItem.foodItemID)
             if (existItem) {
                 return {
-                    ...state,
-                    cartItems: state.cartItems.map(x => x.product === existItem.product ? item : x)
+                    ...prevState,
+                    // just because when we change the **quantity of an existing item** we update its qty value...
+                    cartItems: prevState.cartItems.map(x => x.foodItem === existItem.foodItemID ? newOrderItem : x)
                 }
             }
             else {
                 return {
-                    ...state,
-                    cartItems: [...state.cartItems, item],
+                    ...prevState,
+                    cartItems: [...prevState.cartItems, newOrderItem],
                 }
             }
             
         case CART_REMOVE_ITEM: 
             return {
-                ...state,
-                cartItems: state.cartItems.filter(item => item.product !== action.payload)
+                ...prevState,
+                cartItems: prevState.cartItems.filter(item => item.product !== action.payload)
             }
         case CART_SAVE_SHIPPING_ADDRESS:
             return {
-                ...state,
+                ...prevState,
                 shippingAddress: action.payload,
             }
         case CART_SAVE_PAYMENT_METHOD:
             return {
-                ...state,
+                ...prevState,
                 paymentMethod: action.payload,
             }
         default:
-            return state
+            return prevState
     }
 }

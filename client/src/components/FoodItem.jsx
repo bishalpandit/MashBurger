@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from '../redux/actions/cartActions'
 import { Card, CardContent, CardMedia, Typography, Skeleton, IconButton, Rating } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 export default function Product({ foodItem: { _id, imgURL, name, rating, price } }) {
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(_id, 1))
+  }
 
   const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
   return (
@@ -31,24 +39,24 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
           <Rating name="read-only" value={rating} readOnly />
           <Typography variant="h6" color="text.primary">
             Rs {price?.small ?
-                (
-                  <div className="inline">
-                    {price.small + '-' + (price.large || price.medium) }
-                  </div>
-                )
-                :
-                (
-                  <div class='inline'>
-                    {price}
-                  </div>
-                )
-               }
+              (
+                <div className="inline">
+                  {price.small + '-' + (price.large || price.medium)}
+                </div>
+              )
+              :
+              (
+                <div class='inline'>
+                  {price}
+                </div>
+              )
+            }
           </Typography>
           <div className='flex justify-around items-center'>
             <IconButton >
-              <FavoriteBorderIcon className='!text-[#f43f5e]'/>
+              <FavoriteBorderIcon className='!text-[#f43f5e]' />
             </IconButton>
-            <IconButton>
+            <IconButton onClick={addToCartHandler}>
               <AddShoppingCartIcon className='text-teal-500' />
             </IconButton>
           </div>
