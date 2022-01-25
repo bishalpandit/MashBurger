@@ -11,14 +11,22 @@ export default function FoodItemScreen({ match, history }) {
   const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
   const foodItemDetails = useSelector((state) => state.foodItemDetails);
   const { loading, error, foodItem } = foodItemDetails;
-  const { price } = foodItem
+  const { price, name, _id, imgURL } = foodItem
   const [selectPrice, setSelectPrice] = useState('small')
 
-  const foodItemID = match.params.id;
+
+  const cartItem = {
+    name,
+    imgURL,
+    foodItemID: _id,
+    price: (typeof price === 'object') ? price[selectPrice] : price,
+    qty: 1,
+  } 
+
 
   useEffect(() => {
     dispatch(listFoodItemDetails(match.params.id));
-  }, [dispatch, match.params.id]);
+  }, [match.params.id, dispatch]);
 
   const addToCartHandler = () => {
     
@@ -79,7 +87,7 @@ export default function FoodItemScreen({ match, history }) {
 
             <h4 className='text-orange-500 text-4xl font-poppins font-bold'>Rs {typeof price === 'object' ? price[selectPrice] : price}</h4>
             <div className='flex space-x-10'>
-              <Button onClick={() => { dispatch(addToCart(foodItemID)) }} variant="contained" className="!bg-emerald-500">Add to Cart</Button>
+              <Button onClick={() => { dispatch(addToCart(cartItem)) }} variant="contained" className="!bg-emerald-500">Add to Cart</Button>
               <Button onClick={() => { dispatch(addToFavourite(foodItem)) }} variant="contained" className="!bg-rose-500">Add to Favorites</Button>
             </div>
           </div>

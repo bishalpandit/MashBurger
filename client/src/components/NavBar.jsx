@@ -191,13 +191,16 @@ export default function NavBar({ history }) {
             aria-haspopup="true"
             color="inherit"
             sx={{ marginRight: '4px' }}
+            onClick={() => { history.push('/cart') }}
           >
             {
               Boolean(cartItems.length) ?
                 (
-                  <Badge badgeContent={cartItems.length} color="secondary">
-                    <ShoppingCartRoundedIcon />
-                  </Badge>
+                  <StyledLink to='/cart'>
+                    <Badge badgeContent={cartItems.length} color="secondary">
+                      <ShoppingCartRoundedIcon />
+                    </Badge>
+                  </StyledLink>
                 ) :
                 (
                   <ShoppingCartRoundedIcon />

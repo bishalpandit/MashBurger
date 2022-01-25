@@ -6,6 +6,7 @@ import { getOrder, orderPay } from '../redux/actions/orderActions';
 import axios from 'axios'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
+import baseImgURL from '../utils/baseImgURL'
 
 const OrderScreen = ({ match }) => {
 
@@ -24,15 +25,13 @@ const OrderScreen = ({ match }) => {
             const { data: clientId } = await axios.get('/api/config/paypal')
             const script = document.createElement('script')
             script.type = 'text/javascript'
-            script.src = `https://www.paypal.com/sdk/js?client-id=sb&&currency=INR`
+            script.src = "https://www.paypal.com/sdk/js?client-id=sb"
             script.async = true
             script.onload = () => {
                 setSdkReady(true)
             }
             document.body.appendChild(script)
         }
-
-
 
         if (!order || successPay) {
             dispatch({ type: ORDER_PAY_RESET })
@@ -66,25 +65,25 @@ const OrderScreen = ({ match }) => {
                             {
                                 order?.orderItems?.length === 0 ?
                                     <Alert severity='info'>Cart is Empty</Alert> :
-                                    order?.orderItems?.map((product, index) => (
-                                        <ListItem key={index} sx={{ py: 1, px: 0 }}>
-                                            <Avatar sx={{ m: 1 }} src={product.image} variant='square'></Avatar>
-                                            <ListItemText primary={product.name} secondary={product.description} />
-                                            <Typography variant="body1">{`${product.qty}x $ ${product.price}`}</Typography>
-                                        </ListItem>
+                                    order?.orderItems?.map((item, index) => (
+                                        <div key={item.foodItemID} className='flex justify-between py-2 px-4'>
+                                        <Avatar src={baseImgURL + item.imgURL} variant='square' />
+                                        <h4 className='text-base text-black/80 '>{item.name}</h4>
+                                        <h4 className='text-base text-black/80 '>{item.qty} x Rs {item.price}</h4>
+                                    </div>
                                     ))}
 
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Shipping Price" />
                                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                    $ {order?.shippingPrice}
+                                    Rs {order?.shippingPrice}
                                 </Typography>
                             </ListItem>
 
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Total" />
                                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                    $ {order?.totalPrice}
+                                    Rs {order?.totalPrice}
                                 </Typography>
                             </ListItem>
 

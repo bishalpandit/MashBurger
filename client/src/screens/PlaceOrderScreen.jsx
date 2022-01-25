@@ -13,12 +13,12 @@ const PlaceOrderScreen = ({ history }) => {
 
 
     let itemsPrice = cartItems.reduce((acc, item) => { return acc + (item.price * item.qty) }, 0)
-    const shippingPrice = (itemsPrice < 500) ? 40 : 0
+    const shippingPrice = (itemsPrice < 500) ? 49 : 0
     const total = (itemsPrice < 500) ? (itemsPrice + shippingPrice) : itemsPrice
-    
+
     const orderCreate = useSelector(state => state.orderCreate)
     const { order, success, error } = orderCreate
-    
+    const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
     const placeOrderHandler = () => {
         dispatch(createOrder({
             orderItems: cartItems,
@@ -31,53 +31,53 @@ const PlaceOrderScreen = ({ history }) => {
     }
 
     useEffect(() => {
-        if(success) {
+        if (success) {
             history.push(`/order/${order._id}`)
         }
     }, [success])
 
     return (
-        <div>
-            <CheckoutSteps step1 step2 step3 step4 />
+        <div className='!font-poppins'>
+
             <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
                 {error &&
-                <Alert severity='error'>Order Placement Failed</Alert>   
-            }
+                    <Alert severity='error'>Order Placement Failed</Alert>
+                }
 
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
 
                     <React.Fragment>
                         <Typography variant="h6" gutterBottom>
-                            Order summary
+                            Order Summary
                         </Typography>
                         <List disablePadding>
                             {!cartItems.length ?
                                 (<Alert severity='info'>Your cart is empty</Alert>)
                                 :
-                                cartItems.map((product) => (
-                                    <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-                                        <Avatar sx={{ m: 1 }} src={product.image} variant='square'></Avatar>
-                                        <ListItemText primary={product.name} secondary={product.description} />
-                                        <Typography variant="body1">{`${product.qty}x $ ${product.price}`}</Typography>
-                                    </ListItem>
+                                cartItems.map((item) => (
+                                    <div key={item.foodItemID} className='flex justify-between py-2 px-4'>
+                                        <Avatar src={baseImgURL + item.imgURL} variant='square' />
+                                        <h4 className='text-base text-black/80 '>{item.name}</h4>
+                                        <h4 className='text-base text-black/80 '>{item.qty} x Rs {item.price}</h4>
+                                    </div>
                                 ))}
 
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Items Price" />
                                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                    $ {itemsPrice.toFixed(2)}
+                                    Rs {itemsPrice.toFixed(2)}
                                 </Typography>
                             </ListItem>
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Shipping Price" />
                                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                    $ {shippingPrice}
+                                    Rs {shippingPrice}
                                 </Typography>
                             </ListItem>
                             <ListItem sx={{ py: 1, px: 0 }}>
                                 <ListItemText primary="Total" />
                                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                                    $ {total.toFixed(2)}
+                                    Rs {total.toFixed(2)}
                                 </Typography>
                             </ListItem>
                         </List>

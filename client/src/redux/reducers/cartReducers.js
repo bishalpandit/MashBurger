@@ -10,7 +10,7 @@ export const cartReducer = (prevState = { cartItems: [], shippingAddress: {}, pa
                 return {
                     ...prevState,
                     // just because when we change the **quantity of an existing item** we update its qty value...
-                    cartItems: prevState.cartItems.map(x => x.foodItem === existItem.foodItemID ? newOrderItem : x)
+                    cartItems: prevState.cartItems.map(x => x.foodItemID === existItem.foodItemID ? newOrderItem : x)
                 }
             }
             else {
@@ -23,7 +23,7 @@ export const cartReducer = (prevState = { cartItems: [], shippingAddress: {}, pa
         case CART_REMOVE_ITEM: 
             return {
                 ...prevState,
-                cartItems: prevState.cartItems.filter(item => item.product !== action.payload)
+                cartItems: prevState.cartItems.filter(item => item.foodItemID !== action.payload)
             }
         case CART_SAVE_SHIPPING_ADDRESS:
             return {

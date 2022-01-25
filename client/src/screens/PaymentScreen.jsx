@@ -5,8 +5,8 @@ import { savePaymentMethod } from '../redux/actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps';
 
 const PaymentScreen = ({ history }) => {
-    const [paymentMethod, setPaymentMethod] = useState('')
-    const { shippingAddress } = useSelector(state => state.cart)
+    const { shippingAddress, paymentMethod: payment } = useSelector(state => state.cart)
+    const [paymentMethod, setPaymentMethod] = useState(payment)
     const dispatch = useDispatch()
 
     if (!shippingAddress) {
@@ -19,7 +19,6 @@ const PaymentScreen = ({ history }) => {
         history.push('/place-order')
     }
 
-    console.log(paymentMethod);
     const paymentMethodsList = ['paypal', 'stripe', 'paytm']
     return (
         <Box maxWidth='xs'>

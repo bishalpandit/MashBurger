@@ -1,18 +1,12 @@
 import axios from "axios";
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants";
+import { CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "../constants/cartConstants";
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const { data } = await axios.get(`/api/fooditems/${id}`);
+export const addToCart = (foodItem) => async (dispatch, getState) => {
+
     //Returning an orderItem object(payload) to save in cart array
     dispatch({
         type: 'CART_ADD_ITEM',
-        payload: {
-            foodItemID: data._id,
-            name: data.name,
-            imgURL: data.imgURL,
-            price: data.price,
-            qty,
-        }
+        payload: foodItem,
     })
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 }

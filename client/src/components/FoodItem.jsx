@@ -14,8 +14,15 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
 
   const dispatch = useDispatch();
 
+  const cartItem = {
+    foodItemID: _id,
+    name,
+    imgURL,
+    price: price.small || price,
+    qty: 1
+  }
   const addToCartHandler = () => {
-    dispatch(addToCart(_id, 1))
+    dispatch(addToCart(cartItem))
   }
 
   const foodItem = {
