@@ -2,18 +2,37 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from '../redux/actions/cartActions'
-import { Card, CardContent, CardMedia, Typography, Skeleton, IconButton, Rating } from '@mui/material'
+import { addToFavourite, removeFromFavourite } from "../redux/actions/favouriteActions";
+import { Card, CardContent, CardMedia, Typography, IconButton, Rating } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 export default function Product({ foodItem: { _id, imgURL, name, rating, price } }) {
+
 
   const dispatch = useDispatch();
 
   const addToCartHandler = () => {
     dispatch(addToCart(_id, 1))
   }
+
+  const foodItem = {
+    _id, imgURL, name, rating, price
+  }
+
+
+
+  const favouriteItems = useSelector(state => state.favourite.items)
+  
+  let isFav = favouriteItems.find(item => item._id === _id)
+
+
+  const FavouriteHandler = () => {
+      isFav ? dispatch(removeFromFavourite(_id)) : dispatch(addToFavourite(foodItem))
+  }
+
 
   const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
   return (
@@ -53,9 +72,15 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
             }
           </Typography>
           <div className='flex justify-around items-center'>
-            <IconButton >
-              <FavoriteBorderIcon className='!text-[#f43f5e]' />
+            <IconButton onClick={FavouriteHandler}>
+              {
+                isFav ?
+                  (<FavoriteIcon className='!text-[#f43f5e]' />)
+                  :
+                  (<FavoriteBorderIcon className='!text-[#f43f5e]' />)
+              }
             </IconButton>
+
             <IconButton onClick={addToCartHandler}>
               <AddShoppingCartIcon className='text-teal-500' />
             </IconButton>
@@ -67,25 +92,3 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
   );
 }
 
-
-{/* <Card className="my-3 p-3 rounded">
-<Link to={`/product/${product._id}`}>
-  <Card.Img src={product.image} variant="top" />
-</Link>
-<Card.Body>
-  <Link to={`/product/${product._id}`}>
-    <Card.Title as="div">
-      <strong>{product.name}</strong>
-    </Card.Title>
-  </Link>
-  <Card.Text as="div">
-    <Rating
-      value={product.rating}
-      text={`${product.numReviews} reviews`}
-    />
-  </Card.Text>
-  <Card.Text as="div">
-    <h3>${product.price}</h3>
-  </Card.Text>
-</Card.Body>
-</Card> */}
