@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, TextField, Link, Grid, Box, Typography, Container } from '@mui/material'
+import { Button, TextField, Box, Typography, Container } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '../redux/actions/userActions';
 import { saveShippingAddress } from '../redux/actions/cartActions'
 import { useHistory } from 'react-router-dom'
 

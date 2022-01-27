@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import FoodItem from "../components/FoodItem";
-import { Grid, Alert, Skeleton, Box } from '@mui/material'
+import { Grid, Alert, Skeleton } from '@mui/material'
 import { useDispatch, useSelector } from "react-redux";
 import { listFoodItems } from "../redux/actions/foodItemActions";
 

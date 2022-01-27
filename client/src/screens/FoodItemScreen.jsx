@@ -4,14 +4,16 @@ import { Alert, Avatar, Button, Chip, LinearProgress, Rating, ToggleButton, Togg
 import { listFoodItemDetails } from "../redux/actions/foodItemActions";
 import { addToCart } from "../redux/actions/cartActions";
 import { addToFavourite } from '../redux/actions/favouriteActions'
+import baseImgURL from "../utils/baseImgURL";
 
 export default function FoodItemScreen({ match, history }) {
 
-  const dispatch = useDispatch();
-  const baseImgURL = 'https://delfoody.blob.core.windows.net/images/static/'
-  const foodItemDetails = useSelector((state) => state.foodItemDetails);
+  const dispatch = useDispatch()
+
+  const foodItemDetails = useSelector((state) => state.foodItemDetails)
   const { loading, error, foodItem } = foodItemDetails;
   const { price, name, _id, imgURL } = foodItem
+
   const [selectPrice, setSelectPrice] = useState('small')
 
 
@@ -23,15 +25,10 @@ export default function FoodItemScreen({ match, history }) {
     qty: 1,
   } 
 
-
   useEffect(() => {
     dispatch(listFoodItemDetails(match.params.id));
   }, [match.params.id, dispatch]);
 
-  const addToCartHandler = () => {
-    
-    //history.push(`/cart/${match.params.id}?qty=${qty}`)
-  }
 
   return (
     <div>

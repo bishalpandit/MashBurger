@@ -7,7 +7,7 @@ export const listFoodItems = () => async (dispatch) => {
     })
 
     const { data } = await axios.get('/api/fooditems')
-    console.log(data);
+
     dispatch({
       type: 'FOODITEM_LIST_SUCCESS',
       payload: data,

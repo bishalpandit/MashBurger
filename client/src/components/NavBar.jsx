@@ -8,10 +8,12 @@ import LoginIcon from '@mui/icons-material/Login';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from "../redux/actions/userActions";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 
-export default function NavBar({ history }) {
+export default function NavBar() {
+
+  const history = useHistory()
 
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -123,7 +125,9 @@ export default function NavBar({ history }) {
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
 
-
+  const moveToCartHandler = () => {
+    history.push('/cart')
+  }
 
   const searchBarMobile = (
     <Search sx={{ display: 'flex', }}>
@@ -191,7 +195,7 @@ export default function NavBar({ history }) {
             aria-haspopup="true"
             color="inherit"
             sx={{ marginRight: '4px' }}
-            onClick={() => { history.push('/cart') }}
+            onClick={moveToCartHandler}
           >
             {
               Boolean(cartItems.length) ?
