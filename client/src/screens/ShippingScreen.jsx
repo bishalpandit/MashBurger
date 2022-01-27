@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Button, TextField, Link, Grid, Box, Typography, Container } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../redux/actions/userActions';
@@ -15,6 +15,14 @@ const ShippingScreen = () => {
     const [city, setCity] = useState(shippingAddress.city)
     const [pinCode, setPinCode] = useState(shippingAddress.pinCode)
     const [country, setCountry] = useState(shippingAddress.country)
+
+    const { userInfo } = useSelector((state) => state.userLogin)
+
+    useEffect(() => {
+        if(!userInfo) {
+            history.push('/login')
+        }
+    }, [history, userInfo])
 
     const handleSubmit = (e) => {
         e.preventDefault();

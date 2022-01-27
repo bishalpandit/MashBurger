@@ -14,11 +14,19 @@ function CartScreen() {
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart;
 
-    const itemsTotal = cartItems.reduce((acc, item) => acc + item.price*item.qty, 0).toFixed(2)
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
+    const itemsTotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     const shippingPrice = itemsTotal >= 500 ? 0 : 49
 
     const checkOutHandler = () => {
-        history.push('/shipping')
+        if (userInfo) {
+            history.push('/shipping')
+        }
+        else {
+            history.push('/login')
+        }
     }
 
     return (

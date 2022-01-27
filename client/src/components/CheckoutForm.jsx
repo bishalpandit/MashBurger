@@ -58,7 +58,7 @@ export default function CheckoutForm({ orderId }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/order/${orderId}`,
+        return_url: `http://localhost:3000/order/${orderId}/success`,
       },
     });
 
@@ -79,7 +79,7 @@ export default function CheckoutForm({ orderId }) {
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <PaymentElement id="payment-element" />
-      <button className="w-28 h-10 rounded-xl shadow-md px-4 py-2 bg-green-500/90 mt-4 text-white font-poppins" disabled={isLoading || !stripe || !elements} id="submit">
+      <button  className="w-28 h-10 rounded-xl shadow-md px-4 py-2 bg-green-500/90 mt-4 text-white font-poppins" disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
           {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
         </span>

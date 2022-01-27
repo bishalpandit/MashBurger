@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
 import baseImgURL from '../utils/baseImgURL'
 import CheckoutForm from '../components/CheckoutForm';
+import { useLocation, useHistory } from 'react-router-dom'
 
 const stripePromise = loadStripe('pk_test_51KMC0ZSDc0LUOC62V43R2FBqSWR7uDUjd5oCZiASr03bwBAlEVQfW4VEJzfUILRbLS9AJGbPdFf3ihqcGtvHj3M800WpO3Gzrh')
 
@@ -26,21 +27,40 @@ const style = {
 
 const OrderScreen = ({ match }) => {
 
-    const orderId = match.params.id
+    const location = useLocation()
     const dispatch = useDispatch()
+    const history = useHistory()
+
+    //Get order ID from url params
+    const orderId = match.params.id
+    
+    const [success, setSuccess] = useState(false)
     const [clientSecret, setClientSecret] = useState("");
+
+    //local states for modal management
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, loading, error } = orderDetails
 
+    //Check whether user is loggedin or not, if not send back login
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
     const { loading: loadingPay, success: successPay } = useSelector(state => state.orderPay)
 
-
+    const query = new URLSearchParams(location.search).get('redirect_status')
+    console.log(query);
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
+
+        if (!userInfo) {
+            history.push('/login');
+        }
+    
         dispatch(getOrder(orderId))
+    
         const createPaymentIntent = async () => {
             const userData = JSON.parse(localStorage.getItem('userInfo'))
             const { token } = userData
@@ -56,8 +76,11 @@ const OrderScreen = ({ match }) => {
             setClientSecret(data.clientSecret);
         }
 
-        createPaymentIntent()
-    }, []);
+        if (!success) {
+            createPaymentIntent()
+        }
+
+    }, [success]);
 
     const appearance = {
         theme: 'stripe',
@@ -85,7 +108,7 @@ const OrderScreen = ({ match }) => {
                     >
                         <Box className='max-w-xs md:min-w-max' sx={style}>
                             <Elements options={options} stripe={stripePromise}>
-                                <CheckoutForm orderId={orderId}/>
+                                <CheckoutForm orderId={orderId} />
                             </Elements>
                         </Box>
                     </Modal>

@@ -72,7 +72,7 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
               )
               :
               (
-                <div class='inline'>
+                <div className='inline'>
                   {price}
                 </div>
               )
