@@ -1,37 +1,24 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Alert } from '@mui/material'
-import { Row, Col, Image, ListGroup, Button, Form, Card, ListGroupItem } from "react-bootstrap"
+
 import { addToCart, removeFromCart } from '../redux/actions/cartActions'
 import CartItem from '../components/CartItem'
 
-function CartScreen({ match, location, history }) {
+function CartScreen() {
 
-    const productId = match.params.id;
-
-    const qty = location.search ? Number(location.search.split("=")[1]) : 1;
+    const history = useHistory()
 
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart;
 
-
-    // useEffect(() => {
-    //     if (productId) {
-    //         dispatch(addToCart(productId, qty));
-    //     }
-    // }, [dispatch, productId, qty])
-
-    const removeFromCartHandler = (id) => {
-        dispatch(removeFromCart(id))
-    }
-
     const itemsTotal = cartItems.reduce((acc, item) => acc + item.price*item.qty, 0).toFixed(2)
     const shippingPrice = itemsTotal >= 500 ? 0 : 49
 
     const checkOutHandler = () => {
-        history.push('/login?redirect=shipping')
+        history.push('/shipping')
     }
 
     return (

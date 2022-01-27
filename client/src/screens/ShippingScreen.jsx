@@ -3,10 +3,12 @@ import { Avatar, Button, TextField, Link, Grid, Box, Typography, Container } fro
 import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../redux/actions/userActions';
 import { saveShippingAddress } from '../redux/actions/cartActions'
-import CheckoutSteps from '../components/CheckoutSteps';
+import { useHistory } from 'react-router-dom'
 
 
-const ShippingScreen = ({ history }) => {
+const ShippingScreen = () => {
+
+    const history = useHistory()
     const { shippingAddress } = useSelector(state => state.cart)
     const dispatch = useDispatch()
     const [address, setAddress] = useState(shippingAddress.address)
@@ -17,12 +19,11 @@ const ShippingScreen = ({ history }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({ address, city, pinCode, country }))
-        history.push('/payment')
+        history.push('/place-order')
     }
     
     return (
         <Box maxWidth='xs'>
-            <CheckoutSteps step1 step2 />
             <Container component='main' maxWidth='xs'>
                 <Typography variant='h5' sx={{ textAlign: 'center', padding: '8px' }}>Shipping</Typography>
                 <Box component="form" onSubmit={handleSubmit}>

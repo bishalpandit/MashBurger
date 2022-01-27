@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Order = require('../models/orderModel');
-
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 //@desc create an order
 //@route POST /api/order
 //@access Protected
@@ -26,6 +26,7 @@ const createOrder = asyncHandler(async (req, res) => {
             totalPrice
         })
 
+        
         const createOrder = await order.save()
 
         res.status(201).json(createOrder)
@@ -35,6 +36,8 @@ const createOrder = asyncHandler(async (req, res) => {
         throw new Error('No order items')
     }
 });
+
+
 
 
 //@desc get order by ID

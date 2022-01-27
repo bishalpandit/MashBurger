@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CheckoutSteps from '../components/CheckoutSteps';
 import { Typography, List, ListItem, Grid, Alert, ListItemText, Button, Container, Paper, Avatar, Link } from '@mui/material';
 import { createOrder } from '../redux/actions/orderActions';
 
@@ -34,7 +33,7 @@ const PlaceOrderScreen = ({ history }) => {
         if (success) {
             history.push(`/order/${order._id}`)
         }
-    }, [success])
+    }, [success, history])
 
     return (
         <div className='!font-poppins'>

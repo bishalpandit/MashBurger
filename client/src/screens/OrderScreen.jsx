@@ -1,49 +1,71 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../components/Loader';
-import { Typography, List, ListItem, Grid, ListItemText, Button, Alert, Container, Paper, Avatar, Link, Box } from '@mui/material'
+import { Typography, Modal, List, ListItem, Grid, ListItemText, Button, Alert, Container, Paper, Avatar, Link, Box } from '@mui/material'
 import { getOrder, orderPay } from '../redux/actions/orderActions';
 import axios from 'axios'
-import { PayPalButton } from 'react-paypal-button-v2'
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
 import baseImgURL from '../utils/baseImgURL'
+import CheckoutForm from '../components/CheckoutForm';
+
+const stripePromise = loadStripe('pk_test_51KMC0ZSDc0LUOC62V43R2FBqSWR7uDUjd5oCZiASr03bwBAlEVQfW4VEJzfUILRbLS9AJGbPdFf3ihqcGtvHj3M800WpO3Gzrh')
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: '15px'
+};
 
 const OrderScreen = ({ match }) => {
 
     const orderId = match.params.id
     const dispatch = useDispatch()
-    const [sdkReady, setSdkReady] = useState(false)
-
+    const [clientSecret, setClientSecret] = useState("");
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, loading, error } = orderDetails
 
     const { loading: loadingPay, success: successPay } = useSelector(state => state.orderPay)
 
+
     useEffect(() => {
+        // Create PaymentIntent as soon as the page loads
+        dispatch(getOrder(orderId))
+        const createPaymentIntent = async () => {
+            const userData = JSON.parse(localStorage.getItem('userInfo'))
+            const { token } = userData
 
-        const addPayPalScript = async () => {
-            const { data: clientId } = await axios.get('/api/config/paypal')
-            const script = document.createElement('script')
-            script.type = 'text/javascript'
-            script.src = "https://www.paypal.com/sdk/js?client-id=sb"
-            script.async = true
-            script.onload = () => {
-                setSdkReady(true)
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
             }
-            document.body.appendChild(script)
+            const { data } = await axios.post(`/api/make-payment/${orderId}`, order, config)
+
+            setClientSecret(data.clientSecret);
         }
 
-        if (!order || successPay) {
-            dispatch({ type: ORDER_PAY_RESET })
-            dispatch(getOrder(orderId))
-        }
-        else if (!order.isPaid) {
-            if (!window.paypal) {
-                addPayPalScript()
-            }
-        }
-    }, [order, orderId, dispatch, successPay])
+        createPaymentIntent()
+    }, []);
 
+    const appearance = {
+        theme: 'stripe',
+    };
+    const options = {
+        clientSecret,
+        appearance,
+    };
 
     const successPaymentHandler = (paymentResult) => {
         console.log(paymentResult);
@@ -54,7 +76,19 @@ const OrderScreen = ({ match }) => {
 
         loading ? <Loader /> : error ? <Alert severity='error'>{error}</Alert> :
             (
-                <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+                <Container component="main" className='!rounded-lg' maxWidth="sm" sx={{ mb: 4 }}>
+                    <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box className='max-w-xs md:min-w-max' sx={style}>
+                            <Elements options={options} stripe={stripePromise}>
+                                <CheckoutForm orderId={orderId}/>
+                            </Elements>
+                        </Box>
+                    </Modal>
                     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
 
                         <Typography variant="h6" gutterBottom>
@@ -67,10 +101,10 @@ const OrderScreen = ({ match }) => {
                                     <Alert severity='info'>Cart is Empty</Alert> :
                                     order?.orderItems?.map((item, index) => (
                                         <div key={item.foodItemID} className='flex justify-between py-2 px-4'>
-                                        <Avatar src={baseImgURL + item.imgURL} variant='square' />
-                                        <h4 className='text-base text-black/80 '>{item.name}</h4>
-                                        <h4 className='text-base text-black/80 '>{item.qty} x Rs {item.price}</h4>
-                                    </div>
+                                            <Avatar src={baseImgURL + item.imgURL} variant='square' />
+                                            <h4 className='text-base text-black/80 '>{item.name}</h4>
+                                            <h4 className='text-base text-black/80 '>{item.qty} x Rs {item.price}</h4>
+                                        </div>
                                     ))}
 
                             <ListItem sx={{ py: 1, px: 0 }}>
@@ -105,23 +139,12 @@ const OrderScreen = ({ match }) => {
                                 <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                                     Payment details
                                 </Typography>
-                                <Typography>Payment Method: {order?.paymentMethod}</Typography>
                                 <Typography><strong>Payment Status</strong>: {order.isPaid ? 'Paid' : 'Not Paid'}</Typography>
                                 {
-                                    !order.isPaid && (
-                                        <List>
-                                            <ListItem>
-                                                {loadingPay && <Loader />}
-                                                {!sdkReady ? <Loader /> : (
-                                                    <PayPalButton
-                                                        amount={order.totalPrice}
-                                                        onSuccess={successPaymentHandler}
-
-                                                    />
-                                                )}
-                                            </ListItem>
-                                        </List>
+                                    clientSecret && (
+                                        <Button variant='contained' className='mt-4' onClick={handleOpen}>Make Payment</Button>
                                     )
+
                                 }
                             </Grid>
                         </Grid>

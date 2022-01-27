@@ -21,10 +21,6 @@ const orderSchema = mongoose.Schema({
         pinCode: { type: String, required: true },
         country: { type: String, required: true },
     },
-    paymentMethod: {
-        type: String,
-        required: true
-    },
     paymentResult: {
         id: { type: String },
         status: { type: String },
