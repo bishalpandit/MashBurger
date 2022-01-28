@@ -25,6 +25,8 @@ export const userDetailsReducer = (state = { user: {}}, action) => {
             return { loading: false, user: action.payload }
         case USER_DETAILS_FAIL:
             return {...state, loading: false, error: action.payload }
+        case 'USER_DETAILS_RESET': 
+            return {}
         default: return state;
     }
 }

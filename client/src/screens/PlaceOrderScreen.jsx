@@ -28,7 +28,7 @@ const PlaceOrderScreen = () => {
         dispatch(createOrder({
             orderItems: cartItems,
             shippingAddress: shippingAddress,
-            paymentMethod: paymentMethod,
+            paymentMethod: 'Stripe',
             itemsPrice: itemsPrice,
             shippingPrice: shippingPrice,
             totalPrice: total,
@@ -108,7 +108,7 @@ const PlaceOrderScreen = () => {
                                         <Typography className='!font-poppins' variant="h6" gutterBottom sx={{ mt: 2 }}>
                                             Payment details
                                         </Typography>
-                                        <Typography className='!font-poppins'>Payment Method: {paymentMethod[0].toUpperCase() + paymentMethod.substr(1)}</Typography>
+                                        <Typography className='!font-poppins'>Payment Method: Stripe</Typography>
                                     </Grid>
                                 </Grid>
                             </React.Fragment>

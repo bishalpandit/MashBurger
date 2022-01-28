@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store'
 import './index.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles'
+import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { orange } from '@mui/material/colors'
 
 const theme = createTheme({

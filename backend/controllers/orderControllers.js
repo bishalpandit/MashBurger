@@ -6,6 +6,7 @@ const stripe = require('stripe')(process.env.STRIPE_KEY);
 //@access Protected
 
 const createOrder = asyncHandler(async (req, res) => {
+    console.log(req.body);
     const {
         orderItems,
         shippingAddress,

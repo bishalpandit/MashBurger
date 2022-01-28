@@ -52,7 +52,7 @@ const OrderScreen = ({ match }) => {
     const { loading: loadingPay, success: successPay } = useSelector(state => state.orderPay)
 
     const query = new URLSearchParams(location.search).get('redirect_status')
-    console.log(query);
+    //console.log(query);
     useEffect(() => {
 
         if (!userInfo) {
@@ -91,7 +91,7 @@ const OrderScreen = ({ match }) => {
     };
 
     const successPaymentHandler = (paymentResult) => {
-        console.log(paymentResult);
+        //console.log(paymentResult);
         dispatch(orderPay({ paymentResult, orderId }))
     }
 

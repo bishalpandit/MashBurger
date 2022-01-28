@@ -25,7 +25,7 @@ const ProfileScreen = ({ history, location }) => {
             email: data.get('email'),
         }
         dispatch(updateUserDetails(userData))
-        
+
     }
 
 
@@ -37,7 +37,7 @@ const ProfileScreen = ({ history, location }) => {
     }, [userInfo, history, dispatch])
 
     return (
-        <Paper elevate={3} sx={{ height: { xs: 600, md: '67vh' } }}>
+        <Paper elevate={3} className>
             <Grid container spacing={1} sx={{ mt: 6 }} >
                 <Grid item xs={4} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                     <List sx={{ paddingLeft: 5 }}>

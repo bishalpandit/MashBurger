@@ -18,7 +18,7 @@ export default function HomeScreen() {
 
   return (
     <>
-      <h1>Your Food Corner</h1>
+      <h1 className="text-3xl font-semibold p-2">Your Food Corner</h1>
       {
         error ? (<Alert severity='error'>Something bad happened!</Alert>) :
 

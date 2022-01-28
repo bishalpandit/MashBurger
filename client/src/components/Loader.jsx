@@ -1,20 +1,11 @@
 import React from 'react'
-import { Spinner } from 'react-bootstrap';
+import { LinearProgress } from '@mui/material'
 
 function Loader() {
     return (
-        <Spinner
-            animation='border'
-            role='status'
-            style={{
-                width: '100px',
-                height: '100px',
-                margin: '100px auto',
-                display: 'block',
-
-            }}>
-            <span className="sr-only">Loading...</span>
-        </Spinner>
+        <div className="h-[100vh] flex flex-col justify-center w-2/4 mx-auto " >
+            <LinearProgress color="primary" />
+        </div>
     )
 }
 

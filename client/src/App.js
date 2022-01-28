@@ -1,7 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 import HomeScreen from './screens/HomeScreen';
 import FoodItemScreen from './screens/FoodItemScreen';
 import CartScreen from './screens/CartScreen';
@@ -21,8 +20,8 @@ function App() {
   return (
     <Router>
       <NavBar  />
-      <main className="py-3" >
-        <Container>
+      <main className='py-6' >
+        <div className='container px-4 mx-auto'>
           <Route path='/' component={HomeScreen} exact />
           <Route path='/fooditem/:id' component={FoodItemScreen} />
           <Route path='/cart/' component={CartScreen} />
@@ -34,7 +33,7 @@ function App() {
           <Route path='/place-order' component={PlaceOrderScreen} />
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/order/:id/success' component={SuccessScreen} />
-        </Container>
+        </div>
       </main>
     </Router>
   );
