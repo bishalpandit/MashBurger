@@ -58,7 +58,7 @@ export default function CheckoutForm({ orderId }) {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `http://localhost:5000/order/${orderId}/success`,
+        return_url: `http://delfoody.azurewebsites.net//order/${orderId}/success`,
       },
     });
 
