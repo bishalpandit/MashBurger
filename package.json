@@ -1,7 +1,7 @@
 {
-  "name": "bookyourhotel",
+  "name": "delfoody",
   "version": "1.0.0",
-  "description": "Hotel Booking App",
+  "description": "Food Ordering App",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server",

@@ -4,17 +4,17 @@ import { Grid, Alert, Skeleton } from '@mui/material'
 import { useDispatch, useSelector } from "react-redux";
 import { listFoodItems } from "../redux/actions/foodItemActions";
 
-export default function HomeScreen() {
+export default function HomeScreen({ match }) {
 
   const dispatch = useDispatch();
-
+  const keyword = match.params.keyword
   const foodItemList = useSelector(state => state.foodItemList);
   const { loading, error, foodItems } = foodItemList
 
 
   useEffect(() => {
-    dispatch(listFoodItems())
-  }, [dispatch]);
+    dispatch(listFoodItems(keyword))
+  }, [dispatch, keyword]);
 
   return (
     <>

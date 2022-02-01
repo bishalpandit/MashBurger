@@ -58,7 +58,7 @@ export default function Product({ foodItem: { _id, imgURL, name, rating, price }
 
         <CardContent>
           <Link to={`/fooditem/${_id}`} style={{ textDecoration: 'none' }}>
-            <Typography className='!text-black !font-medium !text-xl !font-poppins' >
+            <Typography className='!text-black/70 !font-alfa !font-medium !text-xl' >
               {name}
             </Typography>
           </Link>

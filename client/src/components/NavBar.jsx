@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { styled, alpha } from '@mui/material/styles'
-import { Box, Typography, AppBar, Toolbar, IconButton, InputBase, Badge, Menu, MenuItem, } from '@mui/material'
+import { Box, Typography, AppBar, Toolbar, IconButton, InputBase, Badge, Menu, MenuItem, FormControl, } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,58 +11,61 @@ import { logout } from "../redux/actions/userActions";
 import { Link, useHistory } from 'react-router-dom'
 
 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
+  },
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: 'none',
+  color: 'white',
+  padding: '5px',
+  '&:hover': {
+    color: 'white',
+  }
+}))
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
+
+
 export default function NavBar() {
 
   const history = useHistory()
+  const [keyword, setKeyword] = useState('')
 
-  const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
-  }));
-
-  const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }));
-
-  const StyledLink = styled(Link)(({ theme }) => ({
-    textDecoration: 'none',
-    color: 'white',
-    padding: '5px',
-    '&:hover': {
-      color: 'white',
-    }
-  }))
-
-  const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      // vertical padding + font size from searchIcon
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: '20ch',
-      },
-    },
-  }));
 
   // Handling Logout
   const dispatch = useDispatch()
@@ -92,11 +95,11 @@ export default function NavBar() {
     handleMobileMenuClose();
   };
 
-
-
   const handleSearchToggle = () => {
     setSearchOpen(true)
   }
+
+
 
   const menuId = 'primary-search-account-menu';
 
@@ -129,15 +132,29 @@ export default function NavBar() {
     history.push('/cart')
   }
 
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      if(keyword.trim()) {
+        history.push(`/search/${keyword}`)
+      } else {
+        history.push('/')
+      }
+  }
+
   const searchBarMobile = (
     <Search sx={{ display: 'flex', }}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
-      />
+
+      <FormControl component='form' onSubmit={handleSubmit}>
+        <StyledInputBase
+          placeholder="Search…"
+          inputProps={{ 'aria-label': 'search' }}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+      </FormControl>
+
       <IconButton
         size="large"
         edge="end"

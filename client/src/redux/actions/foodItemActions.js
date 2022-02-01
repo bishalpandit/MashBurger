@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const listFoodItems = () => async (dispatch) => {
+export const listFoodItems = (keyword = '') => async (dispatch) => {
   try {
     dispatch({
       type: 'FOODITEM_LIST_REQUEST',
     })
 
-    const { data } = await axios.get('/api/fooditems')
+    const { data } = await axios.get(`/api/fooditems/?keyword=${keyword}`)
 
     dispatch({
       type: 'FOODITEM_LIST_SUCCESS',

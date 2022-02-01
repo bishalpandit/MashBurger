@@ -23,6 +23,7 @@ function App() {
       <main className='py-6' >
         <div className='container px-4 mx-auto'>
           <Route path='/' component={HomeScreen} exact />
+          <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/fooditem/:id' component={FoodItemScreen} />
           <Route path='/cart/' component={CartScreen} />
           <Route path='/login' component={LoginScreen} />

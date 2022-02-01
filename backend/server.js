@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
-const productRoutes = require('./routes/productRoutes')
+const foodItemRoutes = require('./routes/foodItemRoutes')
 const userRoutes = require('./routes/userRoutes')
 const orderRoutes = require('./routes/orderRoutes')
 const paymentRoutes = require('./routes/paymentRoutes')
@@ -21,7 +21,7 @@ app.use(cors({
 // Imported Routes
 app.use(express.json())
 
-app.use('/api/fooditems', productRoutes); // Products API
+app.use('/api/fooditems', foodItemRoutes); // Products API
 app.use('/api/users', userRoutes);  // Users API
 app.use('/api/orders', orderRoutes) // Orders API
 app.use('/api/make-payment', paymentRoutes) // Payment API

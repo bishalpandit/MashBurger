@@ -5,7 +5,15 @@ const FoodItem = require("../models/foodItemModel");
 //@route GET /api/fooditems
 
 const getFoodItems = asyncHandler( async(req, res) => {
-    const foodItems = await FoodItem.find({});
+    const keyword = req.query.keyword ? {
+        name: {
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+    } : {}
+
+    const foodItems = await FoodItem.find({ ...keyword });
+
     if(foodItems) {
 
         res.json(foodItems);
