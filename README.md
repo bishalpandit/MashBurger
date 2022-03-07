@@ -31,7 +31,7 @@
 <h3 align="center">DelFoody</h3>
 
   <p align="center">
-    A food ordering MERN app with loads of functionalites like filtering and sorting of items, add to favourite feature, pay by card or googlepay, searching by category or name and a lot will be added soon. 
+    A food ordering MERN app with loads of functionalites like cart system, checkout feature, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
     <br />
     <a href="https://github.com/bishalpandit/DelFoody"><strong>Explore the docs »</strong></a>
     <br />
@@ -79,7 +79,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-A food ordering MERN app with loads of functionalites like filtering and sorting of items, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
+A food ordering MERN app with loads of functionalites like cart system, checkout feature, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -118,14 +118,13 @@ To run this app locally on your PC, follow the instructions given below:
 
 You must be having Node 14 or higher installed on your PC.
 
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get the following API keys:
+ * MongoDB Connection URI
+ * Stripe Keys
+ * JWT Secret
+
 2. Clone the repo
    ```sh
    git clone https://github.com/bishalpandit/DelFoody.git
@@ -146,9 +145,10 @@ You must be having Node 14 or higher installed on your PC.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+You may make your own Postman collection by checking the routes folder in the backend and test the API endpoints(A sample postman collection will be added soon!).
+
+To make it run on the browser, you can simply set the NODE_ENV key = 'dev' and run the command ```npm run dev```.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -160,7 +160,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Live Delivery tracking
 - [ ] Oauth authentications
 - [ ] Custom Meal Creator
-    - [ ] Nested Feature
+
 
 See the [open issues](https://github.com/bishalpandit/DelFoody/issues) for a full list of proposed features (and known issues).
 
@@ -186,32 +186,16 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-LICENSE
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Bishal Pandit - [@bishalpandit4](https://twitter.com/bishalpandit4) - bishalpandit17@bishalpandit17.com
+Bishal Pandit - [@bishalpandit4](https://twitter.com/bishalpandit4) - bishalpandit17@gmail.com
 
 Project Link: [https://github.com/bishalpandit/DelFoody](https://github.com/bishalpandit/DelFoody)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS
-## Acknowledgments
-
-* []()
-* []()
-* []()
 
 <p align="right">(<a href="#top">back to top</a>)</p> -->
 
