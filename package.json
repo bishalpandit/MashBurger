@@ -1,5 +1,5 @@
 {
-  "name": "delfoody",
+  "name": "mashburger",
   "version": "1.0.0",
   "description": "Food Ordering App",
   "main": "server.js",
@@ -7,6 +7,7 @@
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix client",
+    "build": "npm run build --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder"
   },
