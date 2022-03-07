@@ -176,7 +176,7 @@ export default function NavBar() {
 
           {/* WebApp Name */}
           <StyledLink to='/' sx={{ fontSize: '1.7rem', marginRight: 2 }}>
-            DelFoody
+            MashBurger
           </StyledLink>
 
           {
