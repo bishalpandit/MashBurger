@@ -4,9 +4,13 @@
   "description": "Food Ordering App",
   "main": "server.js",
   "scripts": {
+    "install-client": "cd client && npm install",
+    "install-server": "npm install",
+    "install-modules": "npm install && npm run install-client",
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix client",
+    "build": "cd client && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder"
   },
