@@ -8,6 +8,9 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const chalk = require('chalk')
 const path = require('path')
+const passport = require('passport');
+const cookieSession = require('cookie-session');
+require('./utils/passport');
 // Configs
 
 dotenv.config();
@@ -18,6 +21,14 @@ app.use(cors({
   origin: '*'
 }))
 
+app.use(cookieSession({
+  name: 'google-auth-session',
+  keys: ['key1', 'key2']
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Imported Routes
 app.use(express.json())
 
@@ -26,6 +37,22 @@ app.use('/api/users', userRoutes);  // Users API
 app.use('/api/orders', orderRoutes) // Orders API
 app.use('/api/make-payment', paymentRoutes) // Payment API
 
+app.get('/google',
+    passport.authenticate('google', {
+            scope:
+                ['email', 'profile']
+        }
+    ));
+
+app.get('/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/failed',
+    }),
+    function (req, res) {
+        res.redirect('/success')
+
+    }
+);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')))

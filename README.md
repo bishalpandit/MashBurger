@@ -24,23 +24,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/bishalpandit/DelFoody">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/bishalpandit/mashburger">
+    <img src="images/mashburger_logo.png" alt="Logo" width="130" height="80">
   </a>
 
-<h3 align="center">DelFoody</h3>
+<h3 align="center">MashBurger</h3>
 
   <p align="center">
-    A food ordering MERN app with loads of functionalites like filtering and sorting of items, add to favourite feature, pay by card or googlepay, searching by category or name and a lot will be added soon. 
+    A food ordering (mostly what people crave for nowadays) MERN app with loads of functionalites like cart system, checkout feature, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
     <br />
-    <a href="https://github.com/bishalpandit/DelFoody"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/bishalpandit/mashburger"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="http://delfoody.azurewebsites.net/">View Demo</a>
     ·
-    <a href="https://github.com/bishalpandit/DelFoody/issues">Report Bug</a>
+    <a href="https://github.com/bishalpandit/mashburger/issues">Report Bug</a>
     ·
-    <a href="https://github.com/bishalpandit/DelFoody/issues">Request Feature</a>
+    <a href="https://github.com/bishalpandit/mashburger/issues">Request Feature</a>
   </p>
 </div>
 
@@ -65,10 +65,7 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -77,9 +74,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot1]](https://delfoody.azurewebsites.net)
 
-A food ordering MERN app with loads of functionalites like filtering and sorting of items, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
+[![Product Name Screen Shot][product-screenshot2]](https://delfoody.azurewebsites.net)
+
+[![Product Name Screen Shot][product-screenshot3]](https://delfoody.azurewebsites.net)
+
+A food ordering MERN app with loads of functionalites like cart system, checkout feature, add to favourite feature, pay by card or googlepay, searching by category or name and a lot more will be added soon. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -118,17 +119,18 @@ To run this app locally on your PC, follow the instructions given below:
 
 You must be having Node 14 or higher installed on your PC.
 
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get the following API keys:
+ * MongoDB Connection URI
+ * Stripe Keys
+ * JWT Secret
+ * NODE_ENV('development' or 'production')
+ * PORT(keep it >1000 :))
+
 2. Clone the repo
    ```sh
-   git clone https://github.com/bishalpandit/DelFoody.git
+   git clone https://github.com/bishalpandit/mashburger.git
    ```
 3. Install NPM packages
    ```sh
@@ -146,9 +148,10 @@ You must be having Node 14 or higher installed on your PC.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+You may make your own Postman collection by checking the routes folder in the backend and test the API endpoints(A sample postman collection will be added soon!).
+
+To make it run on the browser, you can simply set the NODE_ENV key = 'development' and run the command ```npm run dev```. For more details, check the package.json file.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -156,13 +159,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- ROADMAP -->
 ## Roadmap
-
+- [X] Stripe Payment
 - [ ] Live Delivery tracking
 - [ ] Oauth authentications
 - [ ] Custom Meal Creator
-    - [ ] Nested Feature
 
-See the [open issues](https://github.com/bishalpandit/DelFoody/issues) for a full list of proposed features (and known issues).
+
+See the [open issues](https://github.com/bishalpandit/mashburger/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -186,34 +189,16 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-LICENSE
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 ## Contact
 
-Bishal Pandit - [@bishalpandit4](https://twitter.com/bishalpandit4) - bishalpandit17@bishalpandit17.com
+Bishal Pandit - [@bishalpandit4](https://twitter.com/bishalpandit4) - bishalpandit17@gmail.com
 
-Project Link: [https://github.com/bishalpandit/DelFoody](https://github.com/bishalpandit/DelFoody)
+Project Link: [https://github.com/bishalpandit/mashburger](https://github.com/bishalpandit/mashburger)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#top">back to top</a>)</p> -->
 
 
 
@@ -221,14 +206,16 @@ Project Link: [https://github.com/bishalpandit/DelFoody](https://github.com/bish
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/bishalpandit/bishalpandit.github.io.svg?style=for-the-badge
 [contributors-url]: https://github.com/bishalpandit/bishalpandit.github.io/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/bishalpandit/DelFoody.svg?style=for-the-badge
-[forks-url]: https://github.com/bishalpandit/DelFoody/network/members
-[stars-shield]: https://img.shields.io/github/stars/bishalpandit/DelFoody.svg?style=for-the-badge
-[stars-url]: https://github.com/bishalpandit/DelFoody/stargazers
-[issues-shield]: https://img.shields.io/github/issues/bishalpandit/DelFoody.svg?style=for-the-badge
-[issues-url]: https://github.com/bishalpandit/DelFoody/issues
-[license-shield]: https://img.shields.io/github/license/bishalpandit/DelFoody.svg?style=for-the-badge
-[license-url]: https://github.com/bishalpandit/DelFoody/blob/master/LICENSE.txt
+[forks-shield]: https://img.shields.io/github/forks/bishalpandit/mashburger.svg?style=for-the-badge
+[forks-url]: https://github.com/bishalpandit/mashburger/network/members
+[stars-shield]: https://img.shields.io/github/stars/bishalpandit/mashburger.svg?style=for-the-badge
+[stars-url]: https://github.com/bishalpandit/mashburger/stargazers
+[issues-shield]: https://img.shields.io/github/issues/bishalpandit/mashburger.svg?style=for-the-badge
+[issues-url]: https://github.com/bishalpandit/mashburger/issues
+[license-shield]: https://img.shields.io/github/license/bishalpandit/mashburger.svg?style=for-the-badge
+[license-url]: https://github.com/bishalpandit/mashburger/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/bishalpandit2602/
-[product-screenshot]: images/screenshot.png
+[product-screenshot1]: images/screenshot1.png
+[product-screenshot2]: images/screenshot2.png
+[product-screenshot3]: images/screenshot3.png
