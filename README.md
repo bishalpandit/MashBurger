@@ -200,11 +200,6 @@ Project Link: [https://github.com/bishalpandit/mashburger](https://github.com/bi
 
 
 
-<<<<<<< HEAD
-=======
-<p align="right">(<a href="#top">back to top</a>)</p> -->
-
->>>>>>> 0755249712f605d30631652993674d0c7e57c799
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
