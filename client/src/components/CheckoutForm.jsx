@@ -57,7 +57,7 @@ export default function CheckoutForm({ orderId }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `http://localhost:3000/order-success/${orderId}`,
+        return_url: `https://delfoody.azurewebsites.net/order-success/${orderId}`,
       },
     });
 
