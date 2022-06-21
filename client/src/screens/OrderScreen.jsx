@@ -9,7 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ORDER_PAY_RESET } from '../redux/constants/orderConstants';
 import baseImgURL from '../utils/baseImgURL'
 import CheckoutForm from '../components/CheckoutForm';
-import { useLocation, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const stripePromise = loadStripe('pk_test_51KMC0ZSDc0LUOC62V43R2FBqSWR7uDUjd5oCZiASr03bwBAlEVQfW4VEJzfUILRbLS9AJGbPdFf3ihqcGtvHj3M800WpO3Gzrh')
 
@@ -27,14 +27,13 @@ const style = {
 
 const OrderScreen = ({ match }) => {
 
-    const location = useLocation()
-    const dispatch = useDispatch()
-    const history = useHistory()
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     //Get order ID from url params
-    const orderId = match.params.id
-    
-    const [success, setSuccess] = useState(false)
+    const orderId = match.params.id;
+    console.log(orderId);
+
     const [clientSecret, setClientSecret] = useState("");
 
     //local states for modal management
@@ -49,12 +48,9 @@ const OrderScreen = ({ match }) => {
     const userLogin = useSelector((state) => state.userLogin)
     const { userInfo } = userLogin
 
-    const { loading: loadingPay, success: successPay } = useSelector(state => state.orderPay)
+    const { loading: loadingPay, success } = useSelector(state => state.orderPay)
 
-    const query = new URLSearchParams(location.search).get('redirect_status')
-    //console.log(query);
     useEffect(() => {
-
         if (!userInfo) {
             history.push('/login');
         }
@@ -80,7 +76,7 @@ const OrderScreen = ({ match }) => {
             createPaymentIntent()
         }
 
-    }, [success]);
+    }, [success, userInfo, history]);
 
     const appearance = {
         theme: 'stripe',
@@ -90,10 +86,10 @@ const OrderScreen = ({ match }) => {
         appearance,
     };
 
-    const successPaymentHandler = (paymentResult) => {
-        //console.log(paymentResult);
-        dispatch(orderPay({ paymentResult, orderId }))
-    }
+    // const successPaymentHandler = (paymentResult) => {
+    //     //console.log(paymentResult);
+    //     dispatch(orderPay({ paymentResult, orderId }))
+    // }
 
     return (
 
